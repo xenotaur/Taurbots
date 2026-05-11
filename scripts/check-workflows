@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+"""Validate lightweight GitHub Actions workflow YAML files."""
+
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+import sys
+
+WORKFLOWS = Path(".github/workflows")
+
+
+def _load_with_pyyaml(path: Path) -> dict[str, object] | None:
+    if importlib.util.find_spec("yaml") is None:
+        return None
+    import yaml
+
+    with path.open("r", encoding="utf-8") as handle:
+        data = yaml.safe_load(handle)
+    if not isinstance(data, dict):
+        raise ValueError("workflow must be a mapping")
+    return data
+
+
+def _load_basic(path: Path) -> dict[str, object]:
+    data: dict[str, object] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or line.startswith((" ", "-")):
+            continue
+        if ":" in stripped:
+            data[stripped.split(":", 1)[0].strip('"\'')] = True
+    return data
+
+
+def main() -> int:
+    if not WORKFLOWS.exists():
+        print("workflow directory does not exist", file=sys.stderr)
+        return 1
+
+    workflow_files = sorted(WORKFLOWS.glob("*.yml")) + sorted(WORKFLOWS.glob("*.yaml"))
+    if not workflow_files:
+        print("no workflow files found", file=sys.stderr)
+        return 1
+
+    using_basic_loader = importlib.util.find_spec("yaml") is None
+    if using_basic_loader:
+        print("PyYAML is not installed; using basic workflow key validation")
+
+    for path in workflow_files:
+        try:
+            data = _load_with_pyyaml(path) or _load_basic(path)
+        except ValueError as error:
+            print(f"{path}: {error}", file=sys.stderr)
+            return 1
+        missing = [key for key in ("name", "on", "jobs") if key not in data]
+        if missing:
+            print(f"{path}: missing required keys: {', '.join(missing)}", file=sys.stderr)
+            return 1
+        jobs = data["jobs"]
+        if not using_basic_loader and (not isinstance(jobs, dict) or not jobs):
+            print(f"{path}: jobs must be a non-empty mapping", file=sys.stderr)
+            return 1
+        print(f"validated {path}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

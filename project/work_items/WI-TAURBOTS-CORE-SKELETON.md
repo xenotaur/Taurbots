@@ -1,7 +1,7 @@
 ---
 id: WI-TAURBOTS-CORE-SKELETON
 title: Core package skeleton and project conventions
-status: proposed
+status: completed
 priority: high
 owner: maintainers
 workstream: core-research-harness
@@ -36,3 +36,12 @@ Establish the first implementation scaffold for Taurbots without adding runtime-
 ## Related Workstream
 
 - `project/workstreams/core-research-harness.md`
+
+## Completion Note
+
+Completed by the core skeleton and initial CI PR for prompt
+`PROMPT(AD_HOC:taurbots-core-skeleton-ci)[20260511T000000Z]`. The completed
+scope adds the minimal `src/taurbots` package, CLI placeholders, packaging
+metadata, unittest-based smoke tests, lightweight developer scripts, and initial
+GitHub Actions workflows while leaving algorithms, simulators, benchmark
+adapters, and workstation diagnostics for later work items.
