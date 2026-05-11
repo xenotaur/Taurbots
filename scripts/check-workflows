@@ -15,8 +15,11 @@ def _load_with_pyyaml(path: Path) -> dict[str, object] | None:
         return None
     import yaml
 
-    with path.open("r", encoding="utf-8") as handle:
-        data = yaml.safe_load(handle)
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            data = yaml.safe_load(handle)
+    except Exception as error:
+        raise ValueError(error) from error
     if not isinstance(data, dict):
         raise ValueError("workflow must be a mapping")
     return data
