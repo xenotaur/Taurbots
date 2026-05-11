@@ -14,4 +14,4 @@ Start with these control-plane artifacts:
 - `project/workstreams/` for the three active planning workstreams.
 - `project/work_items/` for small, actionable next steps.
 
-The first implementation path should establish a simulator-independent core, a Mac/Linux `simple2d` PRM-RL smoke-test path, and diagnostic-first Linux benchmark workstation readiness without vendoring external simulator or benchmark stacks.
+The first implementation path should start with diagnostic-first Linux benchmark workstation readiness, then establish a simulator-independent core, a Mac/Linux `simple2d` PRM-RL smoke-test path, and structured results without vendoring external simulator or benchmark stacks.

@@ -20,10 +20,10 @@ Establish Taurbots planning and scaffold the first implementation around a simul
 
 ## Immediate Priorities
 
-1. Define the core package skeleton, CLI direction, tests/docs conventions, and dependency guardrails.
-2. Define simulator-independent core abstractions and the initial experiment/result schema.
+1. Plan Kubuntu workstation readiness checks before any mutating bootstrap commands.
+2. Define the core package skeleton, CLI direction, tests/docs conventions, and dependency guardrails.
 3. Plan the `simple2d` smoke-test environment and PRM-RL baseline workflow for later implementation.
-4. Plan Kubuntu workstation readiness checks before any mutating bootstrap commands.
+4. Define simulator-independent core abstractions and the initial experiment/result schema.
 5. Define the external benchmark adapter contract and first BARN ROS 2 / ArenaBench recipe plans.
 
 ## Explicit Deferrals
