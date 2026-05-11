@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+python_bin="${PYTHON:-python3}"
+export PYTHONPATH="${PWD}/src:${PYTHONPATH:-}"
+
+"${python_bin}" -c 'import taurbots; print(taurbots.__version__)'
+"${python_bin}" -m taurbots --help >/dev/null
+"${python_bin}" -m taurbots --version >/dev/null
+"${python_bin}" -m taurbots doctor --help >/dev/null
+"${python_bin}" -m taurbots prmrl --help >/dev/null
+"${python_bin}" -m taurbots benchmark --help >/dev/null
+
+set +e
+placeholder_output=$("${python_bin}" -m taurbots doctor 2>&1)
+placeholder_status=$?
+set -e
+
+if [[ "${placeholder_status}" -eq 0 ]]; then
+  echo "expected placeholder command to report non-zero not-yet-implemented status" >&2
+  exit 1
+fi
+
+case "${placeholder_output}" in
+  *"intentionally deferred"*) ;;
+  *)
+    echo "placeholder command did not explain deferred implementation" >&2
+    echo "${placeholder_output}" >&2
+    exit 1
+    ;;
+esac

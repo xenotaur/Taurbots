@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+python_bin="${PYTHON:-python3}"
+export PYTHONPATH="${PWD}/src:${PYTHONPATH:-}"
+html=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --html)
+      html=1
+      shift
+      ;;
+    *)
+      echo "unsupported argument for scripts/coverage: $1" >&2
+      exit 2
+      ;;
+  esac
+done
+
+"${python_bin}" -m coverage run -m unittest discover -s tests -p '*_test.py'
+"${python_bin}" -m coverage report
+if [[ "${html}" -eq 1 ]]; then
+  "${python_bin}" -m coverage html
+fi
