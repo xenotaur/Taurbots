@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+python_bin="${PYTHON:-python3}"
+args=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --check|--diff)
+      args+=("$1")
+      shift
+      ;;
+    *)
+      echo "unsupported argument for scripts/format: $1" >&2
+      exit 2
+      ;;
+  esac
+done
+
+"${python_bin}" -m ruff format "${args[@]}" src tests
