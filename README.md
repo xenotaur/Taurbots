@@ -1,4 +1,5 @@
 # Taurbots
+Taurbots: clean starts for robot navigation and embodied-AI experiments.
 
 Taurbots is a simulator-agnostic robot-navigation and embodied-AI research
 harness. The current repository state is intentionally small: it establishes a
@@ -64,3 +65,13 @@ scripts/check-workflows
 
 These checks must remain independent of heavyweight robotics, simulator, GPU,
 Docker, ROS, Gazebo, Webots, MuJoCo, BARN, ArenaBench, and cloud tooling.
+
+## Repository guidance
+
+Contributors and agents should read the repository-local guidance before making changes:
+
+- `AGENTS.md` for the agent operating contract and Taurbots boundaries;
+- `PROMPTS.md` for prompt IDs and execution-record discipline;
+- `REVIEWS.md` for review-response expectations; and
+- `STYLE.md` for coding, testing, documentation, dependency, and research-artifact style.
+
