@@ -1,6 +1,8 @@
 # Taurbots
+
 Taurbots: clean starts for robot navigation and embodied-AI experiments.
 
+The first implementation path should start with diagnostic-first Linux benchmark workstation readiness, then establish a simulator-independent core, a Mac/Linux `simple2d` PRM-RL smoke-test path, and structured results without vendoring external simulator or benchmark stacks.
 Taurbots is a simulator-agnostic robot-navigation and embodied-AI research
 harness. The current repository state is intentionally small: it establishes a
 minimal Python package, a public CLI shape, developer scripts, and lightweight CI
@@ -22,6 +24,18 @@ This initial package skeleton includes:
 The placeholder subcommands are deliberately non-functional. Robotics, PRM-RL,
 simulator, benchmark, ROS/Gazebo, Webots, MuJoCo, Docker, NVIDIA, and workstation
 setup functionality is deferred to later focused PRs.
+
+## Planning
+
+Taurbots is currently organized as a lightweight, simulator-agnostic robot-navigation research harness. The adopted architecture keeps the core research loop separate from simulator, benchmark, ROS/Gazebo, workstation, and reinforcement-learning framework details.
+
+Start with these control-plane artifacts:
+
+- `project/design/proposals/adopted/taurbots-research-harness-and-benchmark-workstation.md` for the adopted research-harness and benchmark-workstation design.
+- `project/roadmap/roadmap.md` for staged implementation sequencing.
+- `project/focus/current_focus.md` for the immediate implementation focus and explicit deferrals.
+- `project/workstreams/` for the three active planning workstreams.
+- `project/work_items/` for small, actionable next steps.
 
 ## Development setup
 
